@@ -1,0 +1,54 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add New Apartment{% endblock %}
+
+{% block content %}
+    <h1>Add New Apartment Listing</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.name.label(class="form-control-label") }}
+            {{ form.name(class="form-control") }}
+            {% if form.name.errors %}
+                {% for error in form.name.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.location.label(class="form-control-label") }}
+            {{ form.location(class="form-control") }}
+            {% if form.location.errors %}
+                {% for error in form.location.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.amenities.label(class="form-control-label") }}
+            <br>
+            {% for subfield in form.amenities %}
+                <div class="form-check form-check-inline">
+                    {{ subfield(class="form-check-input") }}
+                    {{ subfield.label(class="form-check-label") }}
+                </div>
+            {% endfor %}
+            {% if form.amenities.errors %}
+                {% for error in form.amenities.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.price.label(class="form-control-label") }}
+            {{ form.price(class="form-control") }}
+            {% if form.price.errors %}
+                {% for error in form.price.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Add Apartment</button>
+        <a href="{{ url_for('apartments.index') }}" class="btn btn-secondary ml-2">Cancel</a>
+    </form>
+{% endblock %}

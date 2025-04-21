@@ -1,0 +1,30 @@
+{% extends 'layout.html' %}
+
+{% block title %}Add Review for {{ apartment.name }}{% endblock %}
+
+{% block content %}
+    <h1>Add Review for {{ apartment.name }}</h1>
+    <form method="POST">
+        {{ form.hidden_tag() }}
+        <div class="form-group">
+            {{ form.rating.label(class="form-control-label") }}
+            {{ form.rating(class="form-control") }}
+            {% if form.rating.errors %}
+                {% for error in form.rating.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <div class="form-group">
+            {{ form.comment.label(class="form-control-label") }}
+            {{ form.comment(class="form-control", rows="5") }}
+            {% if form.comment.errors %}
+                {% for error in form.comment.errors %}
+                    <small class="form-text text-danger">{{ error }}</small>
+                {% endfor %}
+            {% endif %}
+        </div>
+        <button type="submit" class="btn btn-primary">Submit Review</button>
+        <a href="{{ url_for('apartments.apartment_detail', apartment_id=apartment.id) }}" class="btn btn-secondary ml-2">Cancel</a>
+    </form>
+{% endblock %}
